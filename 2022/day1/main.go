@@ -32,6 +32,7 @@ func main() {
 	fmt.Printf("Total calories carried by top three: %d\n", totalCaloriesTopThree)
 }
 
+// Get the total carries for the elf carrying the most calories
 func GetMaxCalories(input string) (int, error) {
 	calorieCounts, err := getCalorieCounts(input)
 	if err != nil {
@@ -41,6 +42,8 @@ func GetMaxCalories(input string) (int, error) {
 	return calorieCounts[0], nil
 }
 
+// Get the total carries for the top three elves carrying
+// the most calories
 func GetTotalCaloriesTopThree(input string) (int, error) {
 	calorieCounts, err := getCalorieCounts(input)
 	if err != nil {
@@ -50,6 +53,8 @@ func GetTotalCaloriesTopThree(input string) (int, error) {
 	return sumAll(calorieCounts[:3]), nil
 }
 
+// Get a list of calories counts by elf
+// sorted from greatest to least
 func getCalorieCounts(input string) ([]int, error) {
 	parsedInput := parseInput(input)
 	calorieCounts := make([]int, 0)
@@ -68,6 +73,7 @@ func getCalorieCounts(input string) ([]int, error) {
 	return calorieCounts, nil
 }
 
+// Parse the input into a list of string lists
 func parseInput(input string) [][]string {
 	splitOnBlankLines := strings.Split(input, "\n\n")
 	splitOnNewLines := make([][]string, 0)
@@ -81,6 +87,7 @@ func parseInput(input string) [][]string {
 	return splitOnNewLines
 }
 
+// Sum a list of ints
 func sumAll(numbers []int) int {
 	sum := 0
 	for _, n := range numbers {
@@ -90,6 +97,7 @@ func sumAll(numbers []int) int {
 	return sum
 }
 
+// Convert a list of strings into a list of ints
 func convertStrListToIntList(strs []string) ([]int, error) {
 	result := make([]int, 0)
 	for _, s := range strs {
