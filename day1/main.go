@@ -1,10 +1,29 @@
 package main
 
 import (
+	reader "2022"
+	"fmt"
+	"os"
 	"slices"
 	"strconv"
 	"strings"
 )
+
+func main() {
+	input, err := reader.NewInputFromFS(os.DirFS("day1"), "input.txt")
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	answer, nil := GetMaxCalories(input)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	fmt.Println(answer)
+}
 
 func GetMaxCalories(input string) (int, error) {
 	parsedInput := parseInput(input)
