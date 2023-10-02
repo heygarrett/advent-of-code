@@ -1,4 +1,4 @@
-package day1_test
+package main_test
 
 import (
 	"2022/day1"
@@ -9,7 +9,7 @@ import (
 func TestGetMaxCalories(t *testing.T) {
 	t.Run("Test 1", func(t *testing.T) {
 		calories := strings.Join([]string{"1000", "2000", "", "3000", "4000"}, "\n")
-		got, err := day1.GetMaxCalories(calories)
+		got, err := main.GetMaxCalories(calories)
 		if err != nil {
 			t.Error(err)
 		}
@@ -23,7 +23,7 @@ func TestGetMaxCalories(t *testing.T) {
 
 	t.Run("Test 2", func(t *testing.T) {
 		calories := strings.Join([]string{"10000", "2000", "", "3000", "4000"}, "\n")
-		got, err := day1.GetMaxCalories(calories)
+		got, err := main.GetMaxCalories(calories)
 		if err != nil {
 			t.Error(err)
 		}
@@ -51,7 +51,7 @@ func TestGetMaxCalories(t *testing.T) {
 			"",
 			"10000",
 		}, "\n")
-		got, err := day1.GetMaxCalories(calories)
+		got, err := main.GetMaxCalories(calories)
 		if err != nil {
 			t.Error(err)
 		}
