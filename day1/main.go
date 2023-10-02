@@ -16,28 +16,56 @@ func main() {
 		os.Exit(1)
 	}
 
-	answer, nil := GetMaxCalories(input)
+	maxCalories, nil := GetMaxCalories(input)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
-	fmt.Println(answer)
+	totalCaloriesTopThree, nil := GetTotalCaloriesTopThree(input)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	fmt.Printf("Max calories carried by one elf: %d\n", maxCalories)
+	fmt.Printf("Total calories carried by top three: %d\n", totalCaloriesTopThree)
 }
 
 func GetMaxCalories(input string) (int, error) {
+	calorieCounts, err := getCalorieCounts(input)
+	if err != nil {
+		return 0, nil
+	}
+
+	return calorieCounts[0], nil
+}
+
+func GetTotalCaloriesTopThree(input string) (int, error) {
+	calorieCounts, err := getCalorieCounts(input)
+	if err != nil {
+		return 0, err
+	}
+
+	return sumAll(calorieCounts[:3]), nil
+}
+
+func getCalorieCounts(input string) ([]int, error) {
 	parsedInput := parseInput(input)
-	elfSums := make([]int, 0)
+	calorieCounts := make([]int, 0)
 	for _, elf := range parsedInput {
 		intList, err := convertStrListToIntList(elf)
 		if err != nil {
-			return 0, err
+			return nil, err
 		}
 		intTotal := sumAll(intList)
-		elfSums = append(elfSums, intTotal)
+		calorieCounts = append(calorieCounts, intTotal)
 	}
 
-	return slices.Max(elfSums), nil
+	slices.Sort(calorieCounts)
+	slices.Reverse(calorieCounts)
+
+	return calorieCounts, nil
 }
 
 func parseInput(input string) [][]string {
