@@ -17,7 +17,7 @@ func TestReadFile(t *testing.T) {
 	}
 
 	t.Run("example1", func(t *testing.T) {
-		input, err := reader.NewInputFromFS(fs, "example1.txt")
+		input, err := reader.ReadFileFromFS(fs, "example1.txt")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -28,7 +28,7 @@ func TestReadFile(t *testing.T) {
 	})
 
 	t.Run("example2", func(t *testing.T) {
-		input, err := reader.NewInputFromFS(fs, "example2.txt")
+		input, err := reader.ReadFileFromFS(fs, "example2.txt")
 		if err != nil {
 			t.Fatal(err)
 		}

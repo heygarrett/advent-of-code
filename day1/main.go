@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	input, err := reader.NewInputFromFS(os.DirFS("day1"), "input.txt")
+	input, err := reader.ReadFileFromFS(os.DirFS("day1"), "input.txt")
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)

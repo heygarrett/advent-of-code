@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func NewInputFromFS(fileSystem fs.FS, fileName string) (string, error) {
+func ReadFileFromFS(fileSystem fs.FS, fileName string) (string, error) {
 	file, err := fileSystem.Open(fileName)
 	if err != nil {
 		return "", err
