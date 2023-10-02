@@ -49,23 +49,12 @@ func TestGetMaxCalories(t *testing.T) {
 		}
 	})
 	t.Run("Example input", func(t *testing.T) {
-		calories := strings.Join([]string{
-			"1000",
-			"2000",
-			"3000",
-			"",
-			"4000",
-			"",
-			"5000",
-			"6000",
-			"",
-			"7000",
-			"8000",
-			"9000",
-			"",
-			"10000",
-		}, "\n")
-		got, err := main.GetMaxCalories(calories)
+		input, err := reader.ReadFileFromFS(os.DirFS("."), "example.txt")
+		if err != nil {
+			t.Error(err)
+		}
+
+		got, err := main.GetMaxCalories(input)
 		if err != nil {
 			t.Error(err)
 		}
