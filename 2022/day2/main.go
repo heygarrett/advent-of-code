@@ -35,9 +35,9 @@ func parseInput(input string) []string {
 type Shape int
 
 const (
-	rock Shape = iota
-	paper
-	scissors
+	rock     Shape = 1
+	paper    Shape = 2
+	scissors Shape = 3
 )
 
 func getRoundScore(round string) int {
@@ -54,20 +54,10 @@ func getRoundScore(round string) int {
 	opponentShape := shapes[bothShapes[0]]
 	myShape := shapes[bothShapes[1]]
 
-	myShapeScore := getShapeScore(myShape)
+	myShapeScore := int(myShape)
 	outcomeScore := getOutcomeScore(myShape, opponentShape)
 
 	return myShapeScore + outcomeScore
-}
-
-func getShapeScore(shape Shape) int {
-	shapeValues := map[Shape]int{
-		rock:     1,
-		paper:    2,
-		scissors: 3,
-	}
-
-	return shapeValues[shape]
 }
 
 func getOutcomeScore(myShape, opponentShape Shape) int {
