@@ -3,6 +3,7 @@ package main
 import (
 	reader "2022"
 	"fmt"
+	"log"
 	"os"
 	"slices"
 	"strconv"
@@ -12,20 +13,17 @@ import (
 func main() {
 	input, err := reader.ReadFileFromFS(os.DirFS("day1"), "input.txt")
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		log.Fatalln(err)
 	}
 
 	maxCalories, nil := GetMaxCalories(input)
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		log.Fatalln(err)
 	}
 
 	totalCaloriesTopThree, nil := GetTotalCaloriesTopThree(input)
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		log.Fatalln(err)
 	}
 
 	fmt.Printf("Max calories carried by one elf: %d\n", maxCalories)
