@@ -9,7 +9,7 @@ import (
 func TestReadFile(t *testing.T) {
 	const (
 		example1 = "hi there hello"
-		example2 = "now you're gtting it"
+		example2 = "super easy, barely an inconvenience"
 	)
 	fs := fstest.MapFS{
 		"example1.txt": {Data: []byte(example1)},
