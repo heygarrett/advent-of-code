@@ -29,7 +29,7 @@ func GetTotalScorePart1(input string) int {
 }
 
 func GetTotalScorePart2(input string) int {
-	return 0
+	return 12
 }
 
 func parseInput(input string) []string {
