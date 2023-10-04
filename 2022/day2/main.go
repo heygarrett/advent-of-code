@@ -28,6 +28,10 @@ func GetTotalScorePart1(input string) int {
 	return totalScore
 }
 
+func GetTotalScorePart2(input string) int {
+	return 0
+}
+
 func parseInput(input string) []string {
 	return strings.Split(input, "\n")
 }

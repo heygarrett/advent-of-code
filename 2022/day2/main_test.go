@@ -10,11 +10,7 @@ import (
 
 func TestGetTotalScorePart1(t *testing.T) {
 	t.Run("example.txt", func(t *testing.T) {
-		input, err := reader.ReadFileFromFS(os.DirFS("."), "example.txt")
-		if err != nil {
-			t.Error(err)
-		}
-
+		input := getExampleInput(t)
 		got := main.GetTotalScorePart1(input)
 		want := 15
 
@@ -44,3 +40,24 @@ func TestGetTotalScorePart1(t *testing.T) {
 	})
 }
 
+func TestGetTotalScorePart2(t *testing.T) {
+	t.Run("example.txt", func(t *testing.T) {
+		input := getExampleInput(t)
+		got := main.GetTotalScorePart2(input)
+		want := 12
+
+		if got != want {
+			t.Errorf("got %d, wanted %d", got, want)
+		}
+	})
+}
+
+func getExampleInput(t testing.TB) string {
+	t.Helper()
+	input, err := reader.ReadFileFromFS(os.DirFS("."), "example.txt")
+	if err != nil {
+		t.Error(err)
+	}
+
+	return input
+}
