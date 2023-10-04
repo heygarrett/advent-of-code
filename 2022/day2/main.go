@@ -14,11 +14,11 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	totalScore := GetTotalScore(input)
+	totalScore := GetTotalScorePart1(input)
 	fmt.Printf("Total score: %d\n", totalScore)
 }
 
-func GetTotalScore(input string) int {
+func GetTotalScorePart1(input string) int {
 	parsedInput := parseInput(input)
 	totalScore := 0
 	for _, round := range parsedInput {

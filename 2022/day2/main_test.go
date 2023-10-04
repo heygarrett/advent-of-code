@@ -8,14 +8,14 @@ import (
 	"testing"
 )
 
-func TestGetTotalScore(t *testing.T) {
+func TestGetTotalScorePart1(t *testing.T) {
 	t.Run("example.txt", func(t *testing.T) {
 		input, err := reader.ReadFileFromFS(os.DirFS("."), "example.txt")
 		if err != nil {
 			t.Error(err)
 		}
 
-		got := main.GetTotalScore(input)
+		got := main.GetTotalScorePart1(input)
 		want := 15
 
 		if got != want {
@@ -35,7 +35,7 @@ func TestGetTotalScore(t *testing.T) {
 			"B X",
 		}, "\n")
 
-		got := main.GetTotalScore(input)
+		got := main.GetTotalScorePart1(input)
 		want := 39
 
 		if got != want {
@@ -43,3 +43,4 @@ func TestGetTotalScore(t *testing.T) {
 		}
 	})
 }
+
