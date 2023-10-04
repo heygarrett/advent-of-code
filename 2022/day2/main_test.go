@@ -25,14 +25,14 @@ func TestGetTotalScore(t *testing.T) {
 
 	t.Run("larger example", func(t *testing.T) {
 		input := strings.Join([]string{
-			"A Y", // 6 + 2
-			"C Z", // 3 + 3
-			"B X", // 0 + 1
-			"A X", // 3 + 1
-			"B Y", // 3 + 2
-			"C Z", // 3 + 3
-			"A Y", // 6 + 2
-			"B X", // 0 + 1
+			"A Y",
+			"C Z",
+			"B X",
+			"A X",
+			"B Y",
+			"C Z",
+			"A Y",
+			"B X",
 		}, "\n")
 
 		got := main.GetTotalScore(input)
