@@ -2,7 +2,7 @@ package main_test
 
 import (
 	reader "2022"
-	main "2022/day2"
+	"2022/day2"
 	"os"
 	"strings"
 	"testing"
