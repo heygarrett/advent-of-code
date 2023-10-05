@@ -47,7 +47,7 @@ func getExampleFileInput() string {
 
 func TestGetTotalScorePart1(t *testing.T) {
 	for index, c := range cases {
-		t.Run(fmt.Sprintf("case %d", index), func(t *testing.T) {
+		t.Run(fmt.Sprintf("case %d", index+1), func(t *testing.T) {
 			got := main.GetTotalScorePart1(c.Input)
 			want := c.Part1Output
 
@@ -60,7 +60,7 @@ func TestGetTotalScorePart1(t *testing.T) {
 
 func TestGetTotalScorePart2(t *testing.T) {
 	for index, c := range cases {
-		t.Run(fmt.Sprintf("case %d", index), func(t *testing.T) {
+		t.Run(fmt.Sprintf("case %d", index+1), func(t *testing.T) {
 			got := main.GetTotalScorePart2(c.Input)
 			want := c.Part2Output
 
