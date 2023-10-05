@@ -110,10 +110,10 @@ func getOutcomeFromShapes(myShape, opponentShape Shape) Outcome {
 }
 
 func getShapeFromOutcome(opponentShape Shape, outcome Outcome) Shape {
-	if outcome == draw {
-		return opponentShape
-	} else if outcome == loss {
+	if outcome == loss {
 		return losesAgainst[opponentShape]
+	} else if outcome == draw {
+		return opponentShape
 	} else {
 		return winsAgainst[opponentShape]
 	}
