@@ -14,10 +14,8 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	totalScore := GetTotalScorePart1(input)
-	fmt.Printf("Total score, part 1: %d\n", totalScore)
-	totalScore = GetTotalScorePart2(input)
-	fmt.Printf("Total score, part 2: %d\n", totalScore)
+	fmt.Printf("Total score, part 1: %d\n", GetTotalScorePart1(input))
+	fmt.Printf("Total score, part 2: %d\n", GetTotalScorePart2(input))
 }
 
 func GetTotalScorePart1(input string) int {
