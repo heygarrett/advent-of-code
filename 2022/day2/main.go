@@ -22,7 +22,10 @@ func GetTotalScorePart1(input string) int {
 	parsedInput := parseInput(input)
 	totalScore := 0
 	for _, round := range parsedInput {
-		totalScore += getRoundScore(round)
+		opponentShape := shapes[round[0]]
+		myShape := shapes[round[1]]
+		outcome := getOutcomeFromShapes(myShape, opponentShape)
+		totalScore += int(myShape) + int(outcome)
 	}
 
 	return totalScore
@@ -32,8 +35,14 @@ func GetTotalScorePart2(input string) int {
 	return 12
 }
 
-func parseInput(input string) []string {
-	return strings.Split(input, "\n")
+func parseInput(input string) [][]string {
+	lines := strings.Split(input, "\n")
+	letterPairs := make([][]string, 0)
+	for _, line := range lines {
+		letterPairs = append(letterPairs, strings.Split(line, " "))
+	}
+
+	return letterPairs
 }
 
 type Shape int
@@ -44,38 +53,57 @@ const (
 	scissors Shape = 3
 )
 
-func getRoundScore(round string) int {
-	shapes := map[string]Shape{
-		"A": rock,
-		"B": paper,
-		"C": scissors,
-		"X": rock,
-		"Y": paper,
-		"Z": scissors,
-	}
-
-	bothShapes := strings.Split(round, " ")
-	opponentShape := shapes[bothShapes[0]]
-	myShape := shapes[bothShapes[1]]
-
-	myShapeScore := int(myShape)
-	outcomeScore := getOutcomeScore(myShape, opponentShape)
-
-	return myShapeScore + outcomeScore
+var shapes = map[string]Shape{
+	"A": rock,
+	"B": paper,
+	"C": scissors,
+	"X": rock,
+	"Y": paper,
+	"Z": scissors,
 }
 
-func getOutcomeScore(myShape, opponentShape Shape) int {
-	losesAgainst := map[Shape]Shape{
-		rock:     scissors,
-		paper:    rock,
-		scissors: paper,
-	}
+var losesAgainst = map[Shape]Shape{
+	rock:     scissors,
+	paper:    rock,
+	scissors: paper,
+}
 
-	if myShape == opponentShape {
-		return 3
-	} else if myShape == losesAgainst[opponentShape] {
-		return 0
+var winsAgainst = map[Shape]Shape{
+	rock:     paper,
+	paper:    scissors,
+	scissors: rock,
+}
+
+type Outcome int
+
+const (
+	loss Outcome = 0
+	draw Outcome = 3
+	win  Outcome = 6
+)
+
+var outcomes = map[string]Outcome{
+	"X": loss,
+	"Y": draw,
+	"Z": win,
+}
+
+func getOutcomeFromShapes(myShape, opponentShape Shape) Outcome {
+	if myShape == losesAgainst[opponentShape] {
+		return loss
+	} else if myShape == opponentShape {
+		return draw
 	} else {
-		return 6
+		return win
+	}
+}
+
+func getShapeFromOutcome(opponentShape Shape, outcome Outcome) Shape {
+	if outcome == draw {
+		return opponentShape
+	} else if outcome == loss {
+		return losesAgainst[opponentShape]
+	} else {
+		return winsAgainst[opponentShape]
 	}
 }
