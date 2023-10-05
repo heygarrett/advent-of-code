@@ -15,7 +15,9 @@ func main() {
 	}
 
 	totalScore := GetTotalScorePart1(input)
-	fmt.Printf("Total score: %d\n", totalScore)
+	fmt.Printf("Total score, part 1: %d\n", totalScore)
+	totalScore = GetTotalScorePart2(input)
+	fmt.Printf("Total score, part 2: %d\n", totalScore)
 }
 
 func GetTotalScorePart1(input string) int {
@@ -32,7 +34,16 @@ func GetTotalScorePart1(input string) int {
 }
 
 func GetTotalScorePart2(input string) int {
-	return 12
+	parsedInput := parseInput(input)
+	totalScore := 0
+	for _, round := range parsedInput {
+		opponentShape := shapes[round[0]]
+		outcome := outcomes[round[1]]
+		myShape := getShapeFromOutcome(opponentShape, outcome)
+		totalScore += int(myShape) + int(outcome)
+	}
+
+	return totalScore
 }
 
 func parseInput(input string) [][]string {
