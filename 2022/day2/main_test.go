@@ -3,24 +3,25 @@ package main_test
 import (
 	reader "2022"
 	"2022/day2"
+	"fmt"
+	"log"
 	"os"
 	"strings"
 	"testing"
 )
 
-func TestGetTotalScorePart1(t *testing.T) {
-	t.Run("example.txt", func(t *testing.T) {
-		input := getExampleInput(t)
-		got := main.GetTotalScorePart1(input)
-		want := 15
-
-		if got != want {
-			t.Errorf("got %d, wanted %d", got, want)
-		}
-	})
-
-	t.Run("larger example", func(t *testing.T) {
-		input := strings.Join([]string{
+var cases = []struct {
+	Input       string
+	Part1Output int
+	Part2Output int
+}{
+	{
+		Input:       getExampleFileInput(),
+		Part1Output: 15,
+		Part2Output: 12,
+	},
+	{
+		Input: strings.Join([]string{
 			"A Y",
 			"C Z",
 			"B X",
@@ -29,35 +30,43 @@ func TestGetTotalScorePart1(t *testing.T) {
 			"C Z",
 			"A Y",
 			"B X",
-		}, "\n")
-
-		got := main.GetTotalScorePart1(input)
-		want := 39
-
-		if got != want {
-			t.Errorf("got %d, wanted %d", got, want)
-		}
-	})
+		}, "\n"),
+		Part1Output: 39,
+		Part2Output: 35,
+	},
 }
 
-func TestGetTotalScorePart2(t *testing.T) {
-	t.Run("example.txt", func(t *testing.T) {
-		input := getExampleInput(t)
-		got := main.GetTotalScorePart2(input)
-		want := 12
-
-		if got != want {
-			t.Errorf("got %d, wanted %d", got, want)
-		}
-	})
-}
-
-func getExampleInput(t testing.TB) string {
-	t.Helper()
+func getExampleFileInput() string {
 	input, err := reader.ReadFileFromFS(os.DirFS("."), "example.txt")
 	if err != nil {
-		t.Error(err)
+		log.Fatal(err)
 	}
 
 	return input
+}
+
+func TestGetTotalScorePart1(t *testing.T) {
+	for index, c := range cases {
+		t.Run(fmt.Sprintf("case %d", index), func(t *testing.T) {
+			got := main.GetTotalScorePart1(c.Input)
+			want := c.Part1Output
+
+			if got != want {
+				t.Errorf("got %d, wanted %d", got, want)
+			}
+		})
+	}
+}
+
+func TestGetTotalScorePart2(t *testing.T) {
+	for index, c := range cases {
+		t.Run(fmt.Sprintf("case %d", index), func(t *testing.T) {
+			got := main.GetTotalScorePart2(c.Input)
+			want := c.Part2Output
+
+			if got != want {
+				t.Errorf("got %d, wanted %d", got, want)
+			}
+		})
+	}
 }
