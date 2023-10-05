@@ -32,7 +32,7 @@ var cases = []struct {
 			"B X",
 		}, "\n"),
 		Part1Output: 39,
-		Part2Output: 35,
+		Part2Output: 32,
 	},
 }
 
