@@ -1,7 +1,8 @@
-package main
+package solutions_test
 
 import (
 	reader "2022"
+	solutions "2022/day03"
 	"fmt"
 	"os"
 	"testing"
@@ -22,7 +23,7 @@ var cases = []struct {
 func TestPart1(t *testing.T) {
 	for index, c := range cases {
 		t.Run(fmt.Sprintf("Case %d", index), func(t *testing.T) {
-			got := Part1(c.input)
+			got := solutions.Part1(c.input)
 			want := c.output
 
 			if got != want {
@@ -37,7 +38,7 @@ func TestPart1(t *testing.T) {
 			t.Error(err)
 		}
 
-		got := Part1(input)
+		got := solutions.Part1(input)
 		want := 157
 
 		if got != want {

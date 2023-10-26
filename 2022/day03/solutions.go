@@ -1,23 +1,9 @@
-package main
+package solutions
 
 import (
-	reader "2022"
-	"fmt"
-	"log"
-	"os"
 	"slices"
 	"strings"
 )
-
-func main() {
-	input, err := reader.ReadFileFromFS(os.DirFS("day03"), "input.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	part1 := Part1(input)
-	fmt.Printf("Part 1: %d\n", part1)
-}
 
 func Part1(input string) (prioritySum int) {
 	lines := strings.Split(input, "\n")
