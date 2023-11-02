@@ -9,8 +9,8 @@ func Part1(input string) int {
 
 	prioritySum := 0
 	for _, line := range lines {
-		strSlice := splitStringInHalf(line)
-		intersection := getIntersection(strSlice)
+		bisectedLine := splitStringInHalf(line)
+		intersection := getIntersection(bisectedLine)
 		for _, letter := range intersection {
 			prioritySum += getPriorityValue(letter)
 		}
@@ -23,15 +23,15 @@ func Part2(input string) int {
 	lines := strings.Split(input, "\n")
 
 	prioritySum := 0
-	group := []string{}
+	lineGroup := []string{}
 	for _, str := range lines {
-		group = append(group, str)
-		if len(group) == 3 {
-			intersection := getIntersection(group)
+		lineGroup = append(lineGroup, str)
+		if len(lineGroup) == 3 {
+			intersection := getIntersection(lineGroup)
 			for _, letter := range intersection {
 				prioritySum += getPriorityValue(letter)
 			}
-			group = nil
+			lineGroup = nil
 		}
 	}
 
@@ -39,27 +39,27 @@ func Part2(input string) int {
 }
 
 func splitStringInHalf(toSplit string) []string {
-	length := len(toSplit)
-	firstHalf := toSplit[:length/2]
-	secondHalf := toSplit[length/2:]
+	halfLength := len(toSplit) / 2
+	firstHalf := toSplit[:halfLength]
+	secondHalf := toSplit[halfLength:]
 
 	return []string{firstHalf, secondHalf}
 }
 
-func getIntersection(strSlice []string) string {
-	if strSlice == nil {
+func getIntersection(listOfStrings []string) string {
+	switch len(listOfStrings) {
+	case 0:
 		return ""
-	}
-	if len(strSlice) == 1 {
-		return strSlice[0]
+	case 1:
+		return listOfStrings[0]
 	}
 
 	set := ""
-	for _, letter := range strSlice[0] {
+	for _, letter := range listOfStrings[0] {
 		if strings.Contains(set, string(letter)) {
 			continue
 		}
-		if strings.Contains(strSlice[1], string(letter)) {
+		if strings.Contains(listOfStrings[1], string(letter)) {
 			set = set + string(letter)
 		}
 	}
@@ -69,9 +69,9 @@ func getIntersection(strSlice []string) string {
 		return set
 	}
 
-	newStrSlice := append([]string{set}, strSlice[2:]...)
+	newListOfStrings := append([]string{set}, listOfStrings[2:]...)
 
-	return getIntersection(newStrSlice)
+	return getIntersection(newListOfStrings)
 }
 
 func getPriorityValue(letter rune) int {
