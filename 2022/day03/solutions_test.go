@@ -4,6 +4,7 @@ import (
 	reader "2022"
 	solutions "2022/day03"
 	"fmt"
+	"log"
 	"os"
 	"testing"
 )
@@ -33,10 +34,7 @@ func TestPart1(t *testing.T) {
 	}
 
 	t.Run("example.txt", func(t *testing.T) {
-		input, err := reader.ReadFileFromFS(os.DirFS("."), "example.txt")
-		if err != nil {
-			t.Error(err)
-		}
+		input := getExampleInput()
 
 		got := solutions.Part1(input)
 		want := 157
@@ -45,4 +43,24 @@ func TestPart1(t *testing.T) {
 			t.Errorf("got %d, wanted %d", got, want)
 		}
 	})
+}
+
+func TestPart2(t *testing.T) {
+	input := getExampleInput()
+
+	got := solutions.Part2(input)
+	want := 70
+
+	if got != want {
+		t.Errorf("got %d, wanted %d", got, want)
+	}
+}
+
+func getExampleInput() string {
+	input, err := reader.ReadFileFromFS(os.DirFS("."), "example.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return input
 }
