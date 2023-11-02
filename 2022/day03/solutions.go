@@ -4,8 +4,10 @@ import (
 	"strings"
 )
 
-func Part1(input string) (prioritySum int) {
+func Part1(input string) int {
 	lines := strings.Split(input, "\n")
+
+	prioritySum := 0
 	for _, line := range lines {
 		strSlice := splitStringInHalf(line)
 		intersection := getIntersection(strSlice)
@@ -14,12 +16,13 @@ func Part1(input string) (prioritySum int) {
 		}
 	}
 
-	return
+	return prioritySum
 }
 
-func Part2(input string) (prioritySum int) {
+func Part2(input string) int {
 	lines := strings.Split(input, "\n")
 
+	prioritySum := 0
 	group := []string{}
 	for _, str := range lines {
 		group = append(group, str)
@@ -32,7 +35,7 @@ func Part2(input string) (prioritySum int) {
 		}
 	}
 
-	return
+	return prioritySum
 }
 
 func splitStringInHalf(toSplit string) []string {
@@ -66,10 +69,11 @@ func getIntersection(strSlice []string) string {
 	return getIntersection(newStrSlice)
 }
 
-func getPriorityValue(letter byte) (value int) {
+func getPriorityValue(letter byte) int {
 	lowercaseOffset := 96
 	capitalOffset := 38
 
+	value := 0
 	letterInt := int(letter)
 	if letterInt > lowercaseOffset {
 		value = letterInt - lowercaseOffset
@@ -77,5 +81,5 @@ func getPriorityValue(letter byte) (value int) {
 		value = letterInt - capitalOffset
 	}
 
-	return
+	return value
 }
