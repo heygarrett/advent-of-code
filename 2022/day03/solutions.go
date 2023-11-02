@@ -12,7 +12,7 @@ func Part1(input string) int {
 		strSlice := splitStringInHalf(line)
 		intersection := getIntersection(strSlice)
 		for _, letter := range intersection {
-			prioritySum += getPriorityValue(byte(letter))
+			prioritySum += getPriorityValue(letter)
 		}
 	}
 
@@ -29,7 +29,7 @@ func Part2(input string) int {
 		if len(group) == 3 {
 			intersection := getIntersection(group)
 			for _, letter := range intersection {
-				prioritySum += getPriorityValue(byte(letter))
+				prioritySum += getPriorityValue(letter)
 			}
 			group = nil
 		}
@@ -69,7 +69,7 @@ func getIntersection(strSlice []string) string {
 	return getIntersection(newStrSlice)
 }
 
-func getPriorityValue(letter byte) int {
+func getPriorityValue(letter rune) int {
 	lowercaseOffset := 96
 	capitalOffset := 38
 
