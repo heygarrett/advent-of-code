@@ -64,6 +64,11 @@ func getIntersection(strSlice []string) string {
 		}
 	}
 
+	// exit early if there's no intersection
+	if set == "" {
+		return set
+	}
+
 	newStrSlice := append([]string{set}, strSlice[2:]...)
 
 	return getIntersection(newStrSlice)
