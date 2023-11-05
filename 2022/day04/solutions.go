@@ -10,6 +10,14 @@ import (
 
 type numRange struct{ start, end int }
 
+func (nr numRange) getPoints() []int {
+	return []int{nr.start, nr.end}
+}
+
+func (nr numRange) isEqualTo(newRange numRange) bool {
+	return reflect.DeepEqual(nr, newRange)
+}
+
 func Part1(input string) int {
 	lines := strings.Split(input, "\n")
 	overlaps := 0
@@ -45,9 +53,10 @@ func getRangesFromLine(line string) []numRange {
 }
 
 func getOverlap(ranges []numRange) bool {
-	allPoints := []int{ranges[0].start, ranges[0].end, ranges[1].start, ranges[1].end}
+	allPoints := []int{}
+	allPoints = append(allPoints, ranges[0].getPoints()...)
+	allPoints = append(allPoints, ranges[1].getPoints()...)
 	slices.Sort(allPoints)
 	middleRange := numRange{allPoints[1], allPoints[2]}
-	return reflect.DeepEqual(middleRange, ranges[0]) ||
-		reflect.DeepEqual(middleRange, ranges[1])
+	return middleRange.isEqualTo(ranges[0]) || middleRange.isEqualTo(ranges[1])
 }
