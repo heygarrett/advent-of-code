@@ -23,6 +23,20 @@ func Part1(input string) int {
 	overlaps := 0
 	for _, l := range lines {
 		firstRange, secondRange := getRangesFromLine(l)
+		rangeOverlap := getCompleteOverlap(firstRange, secondRange)
+		if rangeOverlap {
+			overlaps += 1
+		}
+	}
+
+	return overlaps
+}
+
+func Part2(input string) int {
+	lines := strings.Split(input, "\n")
+	overlaps := 0
+	for _, l := range lines {
+		firstRange, secondRange := getRangesFromLine(l)
 		rangeOverlap := getOverlap(firstRange, secondRange)
 		if rangeOverlap {
 			overlaps += 1
@@ -52,11 +66,32 @@ func getRangesFromLine(line string) (numRange, numRange) {
 	return ranges[0], ranges[1]
 }
 
-func getOverlap(firstRange, secondRange numRange) bool {
+func getCompleteOverlap(firstRange, secondRange numRange) bool {
 	allPoints := []int{}
 	allPoints = append(allPoints, firstRange.getPoints()...)
 	allPoints = append(allPoints, secondRange.getPoints()...)
 	slices.Sort(allPoints)
 	middleRange := numRange{allPoints[1], allPoints[2]}
 	return middleRange.isEqualTo(firstRange) || middleRange.isEqualTo(secondRange)
+}
+
+func getOverlap(firstRange, secondRange numRange) bool {
+	if getCompleteOverlap(firstRange, secondRange) {
+		return true
+	}
+
+	rangeEndsDiff := firstRange.end - secondRange.end
+	if rangeEndsDiff == 0 {
+		return true
+	} else if rangeEndsDiff > 0 {
+		if firstRange.start <= secondRange.end {
+			return true
+		}
+	} else {
+		if secondRange.start <= firstRange.end {
+			return true
+		}
+	}
+
+	return false
 }
