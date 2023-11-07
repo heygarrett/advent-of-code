@@ -19,25 +19,19 @@ func (nr numRange) isEqualTo(newRange numRange) bool {
 }
 
 func Part1(input string) int {
-	lines := strings.Split(input, "\n")
-	overlaps := 0
-	for _, l := range lines {
-		firstRange, secondRange := getRangesFromLine(l)
-		rangeOverlap := getCompleteOverlap(firstRange, secondRange)
-		if rangeOverlap {
-			overlaps += 1
-		}
-	}
-
-	return overlaps
+	return getNumberOfOverlaps(input, getCompleteOverlap)
 }
 
 func Part2(input string) int {
+	return getNumberOfOverlaps(input, getOverlap)
+}
+
+func getNumberOfOverlaps(input string, fn func(numRange, numRange) bool) int {
 	lines := strings.Split(input, "\n")
 	overlaps := 0
 	for _, l := range lines {
 		firstRange, secondRange := getRangesFromLine(l)
-		rangeOverlap := getOverlap(firstRange, secondRange)
+		rangeOverlap := fn(firstRange, secondRange)
 		if rangeOverlap {
 			overlaps += 1
 		}
