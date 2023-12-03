@@ -2,6 +2,7 @@ package solutions
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"regexp"
 	"strconv"
@@ -19,7 +20,29 @@ func Part1(input string) int {
 }
 
 func Part2(input string) int {
-	return 281
+	var total int
+	scanner := bufio.NewScanner(strings.NewReader(input))
+	for scanner.Scan() {
+		line := scanner.Text()
+		for key, value := range replacements {
+			line = strings.ReplaceAll(line, key, fmt.Sprintf("%s%d", key, value))
+		}
+		total += parseLine(line)
+	}
+
+	return total
+}
+
+var replacements = map[string]int{
+	"one":   1,
+	"two":   2,
+	"three": 3,
+	"four":  4,
+	"five":  5,
+	"six":   6,
+	"seven": 7,
+	"eight": 8,
+	"nine":  9,
 }
 
 func parseLine(line string) int {
