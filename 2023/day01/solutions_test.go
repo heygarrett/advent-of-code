@@ -46,3 +46,20 @@ func TestPart1(t *testing.T) {
 		})
 	}
 }
+
+func TestPart2(t *testing.T) {
+	t.Run("example2.txt", func(t *testing.T) {
+		rawInput, err := fs.ReadFile(os.DirFS("."), "example2.txt")
+		if err != nil {
+			log.Fatalln(err)
+		}
+		input := string(rawInput)
+
+		got := solutions.Part2(input)
+		want := 281
+
+		if got != want {
+			t.Errorf("got %d, wanted %d", got, want)
+		}
+	})
+}

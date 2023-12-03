@@ -25,6 +25,10 @@ func Part1(input string) int {
 	return total
 }
 
+func Part2(input string) int {
+	return 0
+}
+
 func filterOutLetters(input string) string {
 	re := regexp.MustCompile(`\d`)
 	match := re.FindAllString(input, -1)
