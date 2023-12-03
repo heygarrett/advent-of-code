@@ -26,7 +26,7 @@ func Part1(input string) int {
 }
 
 func Part2(input string) int {
-	return 0
+	return 281
 }
 
 func filterOutLetters(input string) string {
