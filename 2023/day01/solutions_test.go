@@ -58,6 +58,9 @@ var part2TestCases = []struct {
 	{input: "4nineeightseven2", output: 42},
 	{input: "zoneight234", output: 14},
 	{input: "7pqrstsixteen", output: 76},
+	{input: "threetwone", output: 31},
+	{input: "5twone", output: 51},
+	{input: "oneight", output: 18},
 }
 
 func TestPart2(t *testing.T) {
