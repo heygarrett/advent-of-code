@@ -2,7 +2,6 @@ package solutions
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"regexp"
 	"strconv"
@@ -29,25 +28,66 @@ func Part2(input string) int {
 	scanner := bufio.NewScanner(strings.NewReader(input))
 	for scanner.Scan() {
 		line := scanner.Text()
-		for key, value := range replacements {
-			line = strings.ReplaceAll(line, key, fmt.Sprintf("%s%d", key, value))
+		firstNumber := getFirstNumber(line)
+		lastNumber := getLastNumber(line)
+		result, err := strconv.ParseInt(firstNumber+lastNumber, 0, 0)
+		if err != nil {
+			log.Fatalln(err)
 		}
-		total += parseLine(line)
+		total += int(result)
 	}
 
 	return total
 }
 
-var replacements = map[string]int{
-	"one":   1,
-	"two":   2,
-	"three": 3,
-	"four":  4,
-	"five":  5,
-	"six":   6,
-	"seven": 7,
-	"eight": 8,
-	"nine":  9,
+var replacements = map[string]string{
+	"one":   "1",
+	"two":   "2",
+	"three": "3",
+	"four":  "4",
+	"five":  "5",
+	"six":   "6",
+	"seven": "7",
+	"eight": "8",
+	"nine":  "9",
+}
+
+func getFirstNumber(input string) string {
+	for end := 1; end <= len(input); end++ {
+		strSlice := input[:end]
+		re := regexp.MustCompile(`\d`)
+		match := re.FindString(strSlice)
+		if match != "" {
+			return match
+		}
+
+		for k, v := range replacements {
+			if strings.Contains(strSlice, k) {
+				return v
+			}
+		}
+	}
+
+	return ""
+}
+
+func getLastNumber(input string) string {
+	for start := len(input) - 1; start >= 0; start-- {
+		strSlice := input[start:]
+		re := regexp.MustCompile(`\d`)
+		match := re.FindString(strSlice)
+		if match != "" {
+			return match
+		}
+
+		for k, v := range replacements {
+			if strings.Contains(strSlice, k) {
+				return v
+			}
+		}
+	}
+
+	return ""
 }
 
 func findDigits(input string) string {
@@ -57,4 +97,3 @@ func findDigits(input string) string {
 
 	return digits
 }
-
