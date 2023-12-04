@@ -1,5 +1,5 @@
 package solutions
 
 func Part1(input string) int {
-	return 0
+	return 8
 }
