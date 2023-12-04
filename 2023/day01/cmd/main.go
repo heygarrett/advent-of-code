@@ -17,4 +17,7 @@ func main() {
 
 	part1 := solutions.Part1(input)
 	fmt.Printf("Part 1: %d\n", part1)
+
+	part2 := solutions.Part2(input)
+	fmt.Printf("Part 2: %d\n", part2)
 }
