@@ -8,16 +8,16 @@ import (
 	"strings"
 )
 
+type matchers []func(string) string
+
 func Part1(input string) int {
 	var total int
 	scanner := bufio.NewScanner(strings.NewReader(input))
 	for scanner.Scan() {
-		digits := findDigits(scanner.Text())
-		result, err := strconv.ParseInt(digits[:1]+digits[len(digits)-1:], 0, 0)
-		if err != nil {
-			log.Fatalln(err)
-		}
-		total += int(result)
+		line := scanner.Text()
+		firstNumber := getFirstNumber(line, matchers{matchDigit})
+		lastNumber := getLastNumber(line, matchers{matchDigit})
+		total += convertToInt(firstNumber, lastNumber)
 	}
 
 	return total
@@ -28,13 +28,9 @@ func Part2(input string) int {
 	scanner := bufio.NewScanner(strings.NewReader(input))
 	for scanner.Scan() {
 		line := scanner.Text()
-		firstNumber := getFirstNumber(line)
-		lastNumber := getLastNumber(line)
-		result, err := strconv.ParseInt(firstNumber+lastNumber, 0, 0)
-		if err != nil {
-			log.Fatalln(err)
-		}
-		total += int(result)
+		firstNumber := getFirstNumber(line, matchers{matchDigit, matchWord})
+		lastNumber := getLastNumber(line, matchers{matchDigit, matchWord})
+		total += convertToInt(firstNumber, lastNumber)
 	}
 
 	return total
@@ -52,18 +48,20 @@ var replacements = map[string]string{
 	"nine":  "9",
 }
 
-func getFirstNumber(input string) string {
+func convertToInt(firstDigit, lastDigit string) int {
+	result, err := strconv.ParseInt(firstDigit+lastDigit, 0, 0)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return int(result)
+}
+
+func getFirstNumber(input string, callbacks matchers) string {
 	for end := 1; end <= len(input); end++ {
 		strSlice := input[:end]
-		re := regexp.MustCompile(`\d`)
-		match := re.FindString(strSlice)
-		if match != "" {
-			return match
-		}
-
-		for k, v := range replacements {
-			if strings.Contains(strSlice, k) {
-				return v
+		for _, f := range callbacks {
+			if match := f(strSlice); match != "" {
+				return match
 			}
 		}
 	}
@@ -71,18 +69,12 @@ func getFirstNumber(input string) string {
 	return ""
 }
 
-func getLastNumber(input string) string {
+func getLastNumber(input string, callbacks matchers) string {
 	for start := len(input) - 1; start >= 0; start-- {
 		strSlice := input[start:]
-		re := regexp.MustCompile(`\d`)
-		match := re.FindString(strSlice)
-		if match != "" {
-			return match
-		}
-
-		for k, v := range replacements {
-			if strings.Contains(strSlice, k) {
-				return v
+		for _, f := range callbacks {
+			if match := f(strSlice); match != "" {
+				return match
 			}
 		}
 	}
@@ -90,10 +82,18 @@ func getLastNumber(input string) string {
 	return ""
 }
 
-func findDigits(input string) string {
+func matchDigit(input string) string {
 	re := regexp.MustCompile(`\d`)
-	match := re.FindAllString(input, -1)
-	digits := strings.Join(match, "")
+	match := re.FindString(input)
+	return match
+}
 
-	return digits
+func matchWord(input string) string {
+	for k, v := range replacements {
+		if strings.Contains(input, k) {
+			return v
+		}
+	}
+
+	return ""
 }
