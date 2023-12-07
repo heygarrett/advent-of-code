@@ -9,15 +9,19 @@ import (
 	"testing"
 )
 
-func TestPart1(t *testing.T) {
+func getExampleInput() string {
 	rawInput, err := fs.ReadFile(os.DirFS("."), "example.txt")
 	if err != nil {
 		log.Fatalln(err)
 	}
 	input := string(rawInput)
 
+	return input
+}
+
+func TestPart1(t *testing.T) {
 	t.Run("example.txt", func(t *testing.T) {
-		got := solutions.Part1(input)
+		got := solutions.Part1(getExampleInput())
 		want := 8
 
 		if got != want {
