@@ -19,7 +19,7 @@ func getExampleInput() string {
 	return input
 }
 
-type output struct{ part1 int }
+type output struct{ part1, part2 int }
 
 var testCases = []struct {
 	input  string
@@ -27,23 +27,23 @@ var testCases = []struct {
 }{
 	{
 		input:  "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green",
-		output: output{part1: 1},
+		output: output{part1: 1, part2: 48},
 	},
 	{
 		input:  "Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue",
-		output: output{part1: 2},
+		output: output{part1: 2, part2: 12},
 	},
 	{
 		input:  "Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red",
-		output: output{part1: 0},
+		output: output{part1: 0, part2: 1560},
 	},
 	{
 		input:  "Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red",
-		output: output{part1: 0},
+		output: output{part1: 0, part2: 630},
 	},
 	{
 		input:  "Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green",
-		output: output{part1: 5},
+		output: output{part1: 5, part2: 36},
 	},
 }
 
@@ -78,4 +78,15 @@ func TestPart2(t *testing.T) {
 			t.Errorf("got %d, wanted %d", got, want)
 		}
 	})
+
+	for index, tc := range testCases {
+		t.Run(fmt.Sprintf("Test case: %d", index+1), func(t *testing.T) {
+			got := solutions.Part2(tc.input)
+			want := tc.output.part2
+
+			if got != want {
+				t.Errorf("got %d, wanted %d", got, want)
+			}
+		})
+	}
 }
