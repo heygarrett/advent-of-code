@@ -65,3 +65,14 @@ func TestPart1(t *testing.T) {
 		})
 	}
 }
+
+func TestPart2(t *testing.T) {
+	t.Run("example.txt", func(t *testing.T) {
+		got := solutions.Part2(getExampleInput())
+		want := 2286
+
+		if got != want {
+			t.Errorf("got %d, wanted %d", got, want)
+		}
+	})
+}

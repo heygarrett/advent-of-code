@@ -42,6 +42,10 @@ func Part1(input string) int {
 	return total
 }
 
+func Part2(input string) int {
+	return 0
+}
+
 func parseLine(line string) game {
 	splitOnColon := strings.Split(line, ": ")
 	gameIdString, gameSetString := splitOnColon[0], splitOnColon[1]
