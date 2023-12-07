@@ -34,7 +34,7 @@ func Part1(input string) int {
 	scanner := bufio.NewScanner(strings.NewReader(input))
 	for scanner.Scan() {
 		newGame := parseLine(scanner.Text())
-		if newGame.isPossible(cubeSet{red: 13, green: 14, blue: 15}) {
+		if newGame.isPossible(cubeSet{red: 12, green: 13, blue: 14}) {
 			total += newGame.id
 		}
 	}
