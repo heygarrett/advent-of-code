@@ -47,25 +47,28 @@ func (g game) getMinimumSet() cubeSet {
 }
 
 func Part1(input string) int {
-	var total int
-
-	scanner := bufio.NewScanner(strings.NewReader(input))
-	for scanner.Scan() {
-		newGame := parseLine(scanner.Text())
-		if newGame.isPossible(cubeSet{red: 12, green: 13, blue: 14}) {
-			total += newGame.id
+	return computeLines(input, func(g game) int {
+		if g.isPossible(cubeSet{red: 12, green: 13, blue: 14}) {
+			return g.id
+		} else {
+			return 0
 		}
-	}
-
-	return total
+	})
 }
 
 func Part2(input string) int {
+	return computeLines(input, func(g game) int {
+		return g.getPower()
+	})
+}
+
+func computeLines(input string, f func(g game) int) int {
 	var total int
+
 	scanner := bufio.NewScanner(strings.NewReader(input))
 	for scanner.Scan() {
 		newGame := parseLine(scanner.Text())
-		total += newGame.getPower()
+		total += f(newGame)
 	}
 
 	return total
