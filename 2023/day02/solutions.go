@@ -3,11 +3,13 @@ package solutions
 import (
 	"bufio"
 	"log"
+	"slices"
 	"strconv"
 	"strings"
 )
 
 type cubeSet struct{ red, green, blue int }
+
 type game struct {
 	id   int
 	sets []cubeSet
@@ -28,6 +30,22 @@ func (g game) isPossible(upperLimit cubeSet) bool {
 	return true
 }
 
+func (g game) getPower() int {
+	cubeSet := g.getMinimumSet()
+	return cubeSet.red * cubeSet.green * cubeSet.blue
+}
+
+func (g game) getMinimumSet() cubeSet {
+	minimum := cubeSet{}
+	for _, set := range g.sets {
+		minimum.red = slices.Max([]int{minimum.red, set.red})
+		minimum.green = slices.Max([]int{minimum.green, set.green})
+		minimum.blue = slices.Max([]int{minimum.blue, set.blue})
+	}
+
+	return minimum
+}
+
 func Part1(input string) int {
 	var total int
 
@@ -43,7 +61,14 @@ func Part1(input string) int {
 }
 
 func Part2(input string) int {
-	return 2286
+	var total int
+	scanner := bufio.NewScanner(strings.NewReader(input))
+	for scanner.Scan() {
+		newGame := parseLine(scanner.Text())
+		total += newGame.getPower()
+	}
+
+	return total
 }
 
 func parseLine(line string) game {
