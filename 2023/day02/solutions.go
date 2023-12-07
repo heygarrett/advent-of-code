@@ -43,7 +43,7 @@ func Part1(input string) int {
 }
 
 func Part2(input string) int {
-	return 0
+	return 2286
 }
 
 func parseLine(line string) game {
