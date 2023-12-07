@@ -44,36 +44,39 @@ func Part1(input string) int {
 
 func parseLine(line string) game {
 	splitOnColon := strings.Split(line, ": ")
-	gameIdStr, gameSetsStr := splitOnColon[0], splitOnColon[1]
-	gameSet := strings.Split(gameSetsStr, "; ")
+	gameIdString, gameSetString := splitOnColon[0], splitOnColon[1]
+	cubeSetStrings := strings.Split(gameSetString, "; ")
 
-	idStr := strings.Split(gameIdStr, " ")[1]
-	id, err := strconv.ParseInt(idStr, 0, 0)
+	idString := strings.Split(gameIdString, " ")[1]
+	idInt64, err := strconv.ParseInt(idString, 0, 0)
 	if err != nil {
 		log.Fatalln(err)
 	}
+	idInt := int(idInt64)
 
 	cubeSets := make([]cubeSet, 0)
-	for _, set := range gameSet {
+	for _, setString := range cubeSetStrings {
 		newCubeSet := cubeSet{}
-		for _, css := range strings.Split(set, ", ") {
-			numberAndColor := strings.Split(css, " ")
-			color := numberAndColor[1]
-			number, err := strconv.ParseInt(numberAndColor[0], 0, 0)
+		for _, cubeCountString := range strings.Split(setString, ", ") {
+			colorAndCount := strings.Split(cubeCountString, " ")
+			color := colorAndCount[1]
+			count64, err := strconv.ParseInt(colorAndCount[0], 0, 0)
 			if err != nil {
 				log.Fatalln(err)
 			}
+			count := int(count64)
+
 			switch color {
 			case "red":
-				newCubeSet.red = int(number)
+				newCubeSet.red = count
 			case "green":
-				newCubeSet.green = int(number)
+				newCubeSet.green = count
 			case "blue":
-				newCubeSet.blue = int(number)
+				newCubeSet.blue = count
 			}
 		}
 		cubeSets = append(cubeSets, newCubeSet)
 	}
 
-	return game{id: int(id), sets: cubeSets}
+	return game{id: idInt, sets: cubeSets}
 }
