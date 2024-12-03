@@ -1,12 +1,12 @@
 use std::{fs, iter::zip};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-	let contents = fs::read_to_string("src/bin/day1/input.txt")?;
+	let input = fs::read_to_string("src/bin/day1/input.txt")?;
 
-	let answer = part1(&contents);
+	let answer = part1(&input);
 	println!("part 1: {}", answer);
 
-	let answer = part2(&contents);
+	let answer = part2(&input);
 	println!("part 2: {}", answer);
 
 	Ok(())
@@ -53,17 +53,17 @@ fn generate_lists(input: &str) -> (Vec<u32>, Vec<u32>) {
 mod tests {
 	use super::*;
 
+	fn get_example_input() -> String {
+		fs::read_to_string("src/bin/day1/example.txt").expect("expecting example.txt")
+	}
+
 	#[test]
 	fn test_part1() {
-		let contents =
-			fs::read_to_string("src/bin/day1/example.txt").expect("expecting example.txt");
-		assert_eq!(part1(&contents), 11);
+		assert_eq!(part1(&get_example_input()), 11);
 	}
 
 	#[test]
 	fn test_part2() {
-		let contents =
-			fs::read_to_string("src/bin/day1/example.txt").expect("expecting example.txt");
-		assert_eq!(part2(&contents), 31);
+		assert_eq!(part2(&get_example_input()), 31);
 	}
 }
