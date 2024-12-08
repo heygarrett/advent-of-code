@@ -16,9 +16,9 @@ fn part1(input: String) -> usize {
 		.filter_map(|s| s[1..].splitn(2, ")").take(1).next().take())
 		.filter_map(|s| s.split_once(",").take())
 		.filter_map(|(x, y)| {
-			x.parse::<usize>()
-				.ok()
-				.and_then(|parsed_x| y.parse::<usize>().ok().map(|parsed_y| parsed_x * parsed_y))
+			x.parse::<usize>().ok().and_then(|parsed_x| {
+				y.parse::<usize>().ok().map(|parsed_y| parsed_x * parsed_y)
+			})
 		})
 		.sum()
 }
