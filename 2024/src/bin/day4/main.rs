@@ -9,7 +9,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 	Ok(())
 }
 
-fn part1(input: String) -> usize {
+fn part1(input: String) -> u32 {
 	input
 		.lines()
 		.enumerate()
@@ -17,7 +17,7 @@ fn part1(input: String) -> usize {
 			line.chars()
 				.enumerate()
 				.map(|(ch_index, _)| {
-					let directions: [(isize, isize); 8] = [
+					let directions: [(i32, i32); 8] = [
 						(0, -1),
 						(1, -1),
 						(1, 0),
@@ -27,39 +27,32 @@ fn part1(input: String) -> usize {
 						(-1, 0),
 						(-1, -1),
 					];
+
 					directions
 						.iter()
 						.filter(|(x, y)| {
-							"XMAS"
-								.chars()
-								.enumerate()
-								.map(|(depth, letter)| {
-									let coordinates = (
-										depth as isize * x + ch_index as isize,
-										depth as isize * y + line_index as isize,
-									);
-									if !(0..line.len())
-										.contains(&(coordinates.0 as usize))
-										|| !(0..input.lines().count())
-											.contains(&(coordinates.1 as usize))
-									{
-										return false;
-									}
-									Some(letter)
-										== input
-											.lines()
-											.nth(coordinates.1 as usize)
-											.and_then(|nth_line| {
-												nth_line
-													.chars()
-													.nth(coordinates.0 as usize)
-											})
-								})
-								.all(|b| b)
+							"XMAS".chars().enumerate().all(|(depth, letter)| {
+								let coordinates = (
+									ch_index as i32 + depth as i32 * x,
+									line_index as i32 + depth as i32 * y,
+								);
+
+								if !((0..line.len()).contains(&(coordinates.0 as usize))
+									&& (0..input.lines().count())
+										.contains(&(coordinates.1 as usize)))
+								{
+									return false;
+								}
+
+								Some(letter)
+									== input.lines().nth(coordinates.1 as usize).and_then(
+										|nth_line| nth_line.chars().nth(coordinates.0 as usize),
+									)
+							})
 						})
-						.count()
+						.count() as u32
 				})
-				.sum::<usize>()
+				.sum::<u32>()
 		})
 		.sum()
 }
