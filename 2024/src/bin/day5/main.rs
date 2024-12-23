@@ -1,10 +1,13 @@
-use std::fs;
+use std::{cmp::Ordering, fs};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 	let input = fs::read_to_string("src/bin/day5/input.txt")?;
 
 	let answer = part1(&input);
 	println!("part 1: {}", answer);
+
+	let answer = part2(&input);
+	println!("part 2: {}", answer);
 
 	Ok(())
 }
@@ -15,6 +18,19 @@ fn part1(input: &str) -> u32 {
 		.iter()
 		.filter(|&update| rules.iter().all(|rule| validate(rule, update)))
 		.map(|update| {
+			let length = update.len();
+			update[length / 2]
+		})
+		.sum()
+}
+
+fn part2(input: &str) -> u32 {
+	let (rules, mut updates) = parse_input(input);
+	updates
+		.iter_mut()
+		.filter(|update| !rules.iter().all(|rule| validate(rule, update)))
+		.map(|update| {
+			sort(&rules, update);
 			let length = update.len();
 			update[length / 2]
 		})
@@ -66,6 +82,20 @@ fn validate(rule: &(u32, u32), update: &[u32]) -> bool {
 		.unwrap_or(true)
 }
 
+fn sort(rules: &Vec<(u32, u32)>, update: &mut [u32]) {
+	update.sort_by(|&a, &b| {
+		for &rule in rules {
+			if rule == (a, b) {
+				return Ordering::Less;
+			} else if rule == (b, a) {
+				return Ordering::Greater;
+			}
+		}
+
+		Ordering::Equal
+	})
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
@@ -77,5 +107,10 @@ mod tests {
 	#[test]
 	fn test_part1() {
 		assert_eq!(part1(&get_example_input()), 143);
+	}
+
+	#[test]
+	fn test_part2() {
+		assert_eq!(part2(&get_example_input()), 123);
 	}
 }
