@@ -1,7 +1,7 @@
 use std::fs;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-	let input = fs::read_to_string("src/bin/day3/input.txt")?;
+	let input = fs::read_to_string("src/bin/day03/input.txt")?;
 
 	let answer = part1(&input);
 	println!("part 1: {}", answer);
@@ -45,14 +45,14 @@ mod tests {
 
 	#[test]
 	fn test_part1() {
-		let example_input = fs::read_to_string("src/bin/day3/example.txt")
+		let example_input = fs::read_to_string("src/bin/day03/example.txt")
 			.expect("should be example input");
 		assert_eq!(part1(&example_input), 161);
 	}
 
 	#[test]
 	fn test_part2() {
-		let example_input = fs::read_to_string("src/bin/day3/example2.txt")
+		let example_input = fs::read_to_string("src/bin/day03/example2.txt")
 			.expect("should be example input");
 		assert_eq!(part2(&example_input), 48);
 	}

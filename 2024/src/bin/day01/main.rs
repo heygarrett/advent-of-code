@@ -1,7 +1,7 @@
 use std::{fs, iter::zip};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-	let input = fs::read_to_string("src/bin/day1/input.txt")?;
+	let input = fs::read_to_string("src/bin/day01/input.txt")?;
 
 	let answer = part1(&input);
 	println!("part 1: {}", answer);
@@ -54,7 +54,7 @@ mod tests {
 	use super::*;
 
 	fn get_example_input() -> String {
-		fs::read_to_string("src/bin/day1/example.txt").expect("expecting example.txt")
+		fs::read_to_string("src/bin/day01/example.txt").expect("expecting example.txt")
 	}
 
 	#[test]

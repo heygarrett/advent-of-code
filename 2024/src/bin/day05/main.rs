@@ -1,7 +1,7 @@
 use std::{cmp::Ordering, fs};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-	let input = fs::read_to_string("src/bin/day5/input.txt")?;
+	let input = fs::read_to_string("src/bin/day05/input.txt")?;
 
 	let answer = part1(&input);
 	println!("part 1: {}", answer);
@@ -114,7 +114,7 @@ mod tests {
 	use super::*;
 
 	fn get_example_input() -> String {
-		fs::read_to_string("src/bin/day5/example.txt").expect("should be example input")
+		fs::read_to_string("src/bin/day05/example.txt").expect("should be example input")
 	}
 
 	#[test]

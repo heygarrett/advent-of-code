@@ -1,7 +1,7 @@
 use std::fs;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-	let input = fs::read_to_string("src/bin/day2/input.txt")?;
+	let input = fs::read_to_string("src/bin/day02/input.txt")?;
 	let parsed_input = parse_input(input);
 
 	let answer = part1(&parsed_input);
@@ -64,7 +64,7 @@ mod tests {
 	use super::*;
 
 	fn get_example_input() -> String {
-		fs::read_to_string("src/bin/day2/example.txt").expect("should be example input")
+		fs::read_to_string("src/bin/day02/example.txt").expect("should be example input")
 	}
 
 	#[test]
